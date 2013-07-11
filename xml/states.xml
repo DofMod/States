@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definition>
+
+	<Import url="[config.mod.template]button/iconButton.xml" />
+
+	<Constants>
+		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
+		<Constant name="css" value="[config.ui.skin]css/" />
+
+		<Constant name="bg_height" value="200" type="int" />
+		<Constant name="bg_width" value="400" type="int" />
+	</Constants>
+
+	<Container name="ctn_main">
+		<mouseEnabled>true</mouseEnabled>
+		<Anchors>
+			<Anchor>
+				<AbsDimension x="200"
+							  y="200" />
+			</Anchor>
+		</Anchors>
+
+		<Texture name="tx_background">
+			<Size>
+				<AbsDimension x="[local.bg_width]"
+							  y="[local.bg_height]" />
+			</Size>
+
+			<uri>[local.assets]tx_generalBackgroundWithTitle</uri>
+			<autoGrid>true</autoGrid>
+		</Texture>
+
+		<!-- Title -->
+		<Label>
+			<Anchors>
+				<Anchor>
+					<AbsDimension x="20"
+								  y="20" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="400"
+							  y="37" />
+			</Size>
+
+			<text>States</text>
+			<css>[local.css]title.css</css>
+		</Label>
+
+		<!-- Close button -->
+		<iconButton name="btn_close">
+			<Anchors>
+				<Anchor relativeTo="tx_background"
+						point="TOPRIGHT"
+						relativePoint="TOPRIGHT" />
+			</Anchors>
+			<Size>
+				<AbsDimension x="57"
+							  y="36" />
+			</Size>
+
+			<uri>[local.assets]btn_cornerCross</uri>
+		</iconButton>
+
+		<!-- Config button -->
+		<!-- HACK: on ajoute un btn_PlusMinus pour reutilise son background -->
+		<Texture name="tx_btn_config">
+			<Anchors>
+				<Anchor relativeTo="btn_close">
+					<AbsDimension x="-28"
+								  y="0" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="49"
+							  y="36" />
+			</Size>
+
+			<uri>[local.assets]btn_PlusMinus</uri>
+		</Texture>
+
+		<iconButton name="btn_config">
+			<Anchors>
+				<Anchor relativeTo="tx_btn_config">
+					<AbsDimension x="16"
+								  y="8" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="24"
+							  y="24" />
+			</Size>
+
+			<uri>[local.assets]btn_option_square</uri>
+		</iconButton>
+
+	</Container>
+</Definition>
