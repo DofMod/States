@@ -63,10 +63,14 @@ package
 		{
 			if (data && (data is ContextMenuData))
 			{
-				// createContextMenuItemObject(label, callback, callbackArgs, disabled, childs, selected, ...)
-				var item1:* = modContextMenu.createContextMenuItemObject("States", statesCallback, null, false, null, isLoadedUi());
-				
-				appendToItemModule((data as ContextMenuData), item1);
+				var contextData:ContextMenuData = data as ContextMenuData;
+				if (contextData.makerName == "fightWorld" || contextData.makerName == "world")
+				{
+					// createContextMenuItemObject(label, callback, callbackArgs, disabled, childs, selected, ...)
+					var item1:* = modContextMenu.createContextMenuItemObject("States", statesCallback, null, false, null, isLoadedUi());
+					
+					appendToItemModule(contextData, item1);
+				}
 			}
 		}
 		
