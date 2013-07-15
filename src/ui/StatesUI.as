@@ -12,6 +12,7 @@ package ui
 	import d2enums.ComponentHookList;
 	import enums.ConfigEnum;
 	import flash.geom.Rectangle;
+	import utils.StateDescription;
 	
 	/**
 	 * Main ui class.
@@ -107,7 +108,7 @@ package ui
 					
 					componentsRef.lb_title.text = state.name;
 					
-					componentsRef.btn_title.value = state.id;
+					componentsRef.btn_title.value = state;
 					
 					uiApi.addComponentHook(componentsRef.btn_title, ComponentHookList.ON_PRESS); // Hack to disable the drag
 					uiApi.addComponentHook(componentsRef.btn_title, ComponentHookList.ON_RELEASE);
@@ -137,10 +138,14 @@ package ui
 			{
 				return _ctn_title;
 			}
-			else
+			else if (data is String)
 			{
 				return _ctn_description;
 			}
+			
+			sysApi.log(8, "data != String && != SpellState ? Strange...");
+			
+			return _ctn_empty;
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -211,7 +216,9 @@ package ui
 				default:
 					if (target.name.indexOf("btn_title") != -1)
 					{
-						sysApi.log(16, target.value);
+						sysApi.log(16, StateDescription.getDescription(target.value.id));
+						
+						initGrid(target.value.id);
 						
 						break;
 					}
@@ -255,7 +262,21 @@ package ui
 			var statesId:Object = dataApi.queryGreaterThan(SpellState, "id", 0);
 			var statesSpell:Object = dataApi.queryReturnInstance(SpellState, statesId);
 			
-			grid_states.dataProvider = statesSpell;
+			var displayedInfos:Array = [];
+			for each (var state:SpellState in statesSpell)
+			{
+				displayedInfos.push(state);
+				
+				if (state.id == selectedId)
+				{
+					displayedInfos.push(StateDescription.getDescription(state.id));
+					displayedInfos.push(null);
+					displayedInfos.push(null);
+					displayedInfos.push(null);
+				}
+			}
+			
+			grid_states.dataProvider = displayedInfos;
 		}
 		
 		private function dragUiStart() : void
