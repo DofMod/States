@@ -4,45 +4,38 @@
 	<Import url="[config.mod.template]button/iconButton.xml" />
 
 	<Constants>
-		<Constant name="assets"
-				  value="[config.ui.skin]assets.swf|" />
-		<Constant name="css"
-				  value="[config.ui.skin]css/" />
+		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
+		<Constant name="css" value="[config.ui.skin]css/" />
 
-		<Constant name="emptyName"
-				  value="ctn_empty" />
-		<Constant name="titleName"
-				  value="ctn_title" />
-		<Constant name="descriptionName"
-				  value="ctn_description" />
-
-		<Constant name="bg_height"
-				  value="600"
-				  type="int" />
-		<Constant name="bg_width"
-				  value="400"
-				  type="int" />
+		<Constant name="emptyName" value="ctn_empty" />
+		<Constant name="titleName" value="ctn_title" />
+		<Constant name="descriptionName" value="ctn_description" />
 	</Constants>
 
 	<Container name="ctn_main">
-		<mouseEnabled>true</mouseEnabled>
+		<Anchors>
+			<Anchor>
+				<AbsDimension x="100"
+							  y="100" />
+			</Anchor>
+		</Anchors>
 
 		<Texture name="tx_background">
 			<Size>
-				<AbsDimension x="[local.bg_width]"
-							  y="[local.bg_height]" />
+				<AbsDimension x="500"
+							  y="760" />
 			</Size>
 
 			<uri>[local.assets]tx_generalBackgroundWithTitle</uri>
 			<autoGrid>true</autoGrid>
 		</Texture>
 
-		<!-- Title -->
+		<!-- Le titre de la fenêtre -->
 		<Label>
 			<Anchors>
 				<Anchor>
 					<AbsDimension x="20"
-								  y="15" />
+								  y="16" />
 				</Anchor>
 			</Anchors>
 			<Size>
@@ -54,91 +47,217 @@
 			<css>[local.css]title.css</css>
 		</Label>
 
-		<Grid name="grid_states">
+		<!-- Search container -->
+		<Container name="ctn_search">
 			<Anchors>
 				<Anchor>
-					<AbsDimension x="14"
-								  y="48" />
+					<AbsDimension x="20"
+								  y="55" />
 				</Anchor>
 			</Anchors>
-			<Size>
-				<AbsDimension x="365"
-							  y="500" />
-			</Size>
 
-			<scrollDisplay>always</scrollDisplay>
-			<rendererName>MultiGridRenderer</rendererName>
-			<rendererArgs>updateEntry,getLineType</rendererArgs>
-			<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
-			<slotWidth>345</slotWidth>
-			<slotHeight>30</slotHeight>
+			<Texture name="tx_bgSearch">
+				<Size>
+					<AbsDimension x="440"
+								  y="45" />
+				</Size>
 
-			<Container name="ctn_title">
-				<iconButton name="btn_title">
-					<Size>
-						<AbsDimension x="345"
+				<uri>[local.assets]tx_blockBackground</uri>
+				<autoGrid>true</autoGrid>
+			</Texture>
+
+			<Label name="lb_titleSearch">
+				<Anchors>
+					<Anchor relativeTo="tx_bgSearch">
+						<AbsDimension x="10"
+									  y="10" />
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="130"
+								  y="20" />
+				</Size>
+
+				<css>[local.css]normal.css</css>
+				<text>[ui.search.search]</text>
+			</Label>
+
+			<Texture name="tx_bgInputSearch">
+				<Anchors>
+					<Anchor relativeTo="lb_titleSearch"
+							point="TOPLEFT"
+							relativePoint="TOPRIGHT" />
+				</Anchors>
+				<Size>
+					<AbsDimension x="260"
+								  y="25" />
+				</Size>
+
+				<autoGrid>true</autoGrid>
+				<uri>[local.assets]tx_inputBackgroundDark</uri>
+			</Texture>
+
+			<Input name="inp_search">
+				<Anchors>
+					<Anchor relativeTo="lb_titleSearch"
+							point="TOPLEFT"
+							relativePoint="TOPRIGHT" />
+				</Anchors>
+				<Size>
+					<AbsDimension x="260"
+								  y="25" />
+				</Size>
+
+				<css>[local.css]normal.css</css>
+			</Input>
+
+			<iconButton name="btn_resetSearch">
+				<Anchors>
+					<Anchor relativeTo="inp_search"
+							point="TOPLEFT"
+							relativePoint="TOPRIGHT" />
+				</Anchors>
+				<Size>
+					<AbsDimension x="25"
+								  y="25" />
+				</Size>
+
+				<checkBox>true</checkBox>
+				<uri>[local.assets]btn_cross_square</uri>
+			</iconButton>
+		</Container>
+
+		<Container name="ctn_grid">
+			<Anchors>
+				<Anchor relativeTo="ctn_search"
+						point="TOPLEFT"
+						relativePoint="BOTTOMLEFT" />
+			</Anchors>
+
+			<Texture name="tx_bgGrid">
+				<Size>
+					<AbsDimension x="440"
+								  y="637" />
+				</Size>
+				
+				<uri>[local.assets]tx_blockBackground</uri>
+				<autoGrid>true</autoGrid>
+			</Texture>
+
+			<Label>
+				<Anchors>
+					<Anchor>
+						<AbsDimension x="20"
+									  y="0" />
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="320"
+								  y="30" />
+				</Size>
+
+				<css>[local.css]normal.css</css>
+				<text>[ui.common.name]</text>
+				<verticalAlign>center</verticalAlign>
+			</Label>
+
+			<!-- Grid grid_quests-->
+			<Grid name="grid_states">
+				<Anchors>
+					<Anchor>
+						<AbsDimension x="0"
 									  y="30" />
-					</Size>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="460"
+								  y="580" />
+				</Size>
 
-					<autoGrid>false</autoGrid>
-					<uri>[local.assets]tx_bgSubTitle</uri>
-				</iconButton>
+				<scrollDisplay>always</scrollDisplay>
+				<rendererName>MultiGridRenderer</rendererName>
+				<rendererArgs>updateEntry,getLineType</rendererArgs>
+				<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
+				<slotWidth>440</slotWidth>
+				<slotHeight>30</slotHeight>
 
-				<Label name="lb_title">
-					<Anchors>
-						<Anchor>
-							<AbsDimension x="10"
-										  y="0" />
-						</Anchor>
-					</Anchors>
-					<Size>
-						<AbsDimension x="325"
-									  y="30" />
-					</Size>
+				<Container name="ctn_title">
+					<iconButton name="btn_title">
+						<Size>
+							<AbsDimension x="440"
+										  y="30" />
+						</Size>
 
-					<css>[local.css]normal.css</css>
-				</Label>
-			</Container>
+						<autoGrid>false</autoGrid>
+						<uri>[local.assets]tx_bgSubTitle</uri>
+					</iconButton>
 
-			<Container name="ctn_description">
-				<Label name="lb_description">
-					<Anchors>
-						<Anchor>
-							<AbsDimension x="30"
-										  y="0" />
-						</Anchor>
-					</Anchors>
-					<Size>
-						<AbsDimension x="305"
-									  y="30" />
-					</Size>
+					<Label name="lb_title">
+						<Anchors>
+							<Anchor>
+								<AbsDimension x="10"
+											  y="0" />
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="335"
+										  y="30" />
+						</Size>
 
-					<css>[local.css]normal.css</css>
-					<fixedHeight>false</fixedHeight>
-				</Label>
-			</Container>
+						<css>[local.css]normal.css</css>
+					</Label>
+				</Container>
 
-			<Container name="ctn_empty">
-			</Container>
-		</Grid>
+				<Container name="ctn_description">
+					<Label name="lb_description">
+						<Anchors>
+							<Anchor>
+								<AbsDimension x="45"
+											  y="0" />
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="300"
+										  y="30" />
+						</Size>
 
-		<!-- Close button -->
+						<fixedHeight>false</fixedHeight>
+						<css>[local.css]normal.css</css>
+					</Label>
+				</Container>
+
+				<Container name="ctn_empty">
+				</Container>
+			</Grid>
+
+			<Texture>
+				<Size>
+					<AbsDimension x="440"
+								  y="640" />
+				</Size>
+
+				<uri>[local.assets]tx_commonGrid</uri>
+				<autoGrid>true</autoGrid>
+			</Texture>
+		</Container>
+
+		<!-- Bouton pour fermer cette interface -->
 		<iconButton name="btn_close">
 			<Anchors>
 				<Anchor relativeTo="tx_background"
 						point="TOPRIGHT"
 						relativePoint="TOPRIGHT" />
 			</Anchors>
+
 			<Size>
 				<AbsDimension x="57"
 							  y="36" />
 			</Size>
-
 			<uri>[local.assets]btn_cornerCross</uri>
 		</iconButton>
 
-		<!-- Config button -->
-		<!-- HACK: on ajoute un btn_PlusMinus pour reutilise son background -->
+		<!-- Bouton de configuration -->
+		<!-- HACK: on ajout un btn_PlusMinus pour reutilise sont background -->
 		<Texture name="tx_btn_config">
 			<Anchors>
 				<Anchor relativeTo="btn_close">
@@ -150,7 +269,6 @@
 				<AbsDimension x="49"
 							  y="36" />
 			</Size>
-
 			<uri>[local.assets]btn_PlusMinus</uri>
 		</Texture>
 
@@ -165,9 +283,7 @@
 				<AbsDimension x="24"
 							  y="24" />
 			</Size>
-
 			<uri>[local.assets]btn_option_square</uri>
 		</iconButton>
-
 	</Container>
 </Definition>
