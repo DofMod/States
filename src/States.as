@@ -5,6 +5,8 @@ package
 	import d2api.SystemApi;
 	import d2api.UiApi;
 	import d2data.ContextMenuData;
+	import d2enums.FightEventEnum;
+	import d2hooks.FightEvent;
 	import d2hooks.OpeningContextMenu;
 	import flash.display.Sprite;
 	import flash.utils.getQualifiedClassName;
@@ -51,6 +53,7 @@ package
 		public function main():void
 		{
 			sysApi.addHook(OpeningContextMenu, onOpeningContextMenu);
+			sysApi.addHook(FightEvent, onFightEvent);
 			
 			modCommon.addOptionItem("module_states", "(M) States", "Options du module States", "States::config");
 		}
@@ -71,6 +74,22 @@ package
 					
 					appendToItemModule(contextData, item1);
 				}
+			}
+		}
+		
+		/**
+		 * This callback is process when the FightEvent hook is raised.
+		 *
+		 * @param	eventName	Name of the current event.
+		 * @param	params		Parameters of the current event.
+		 * @param	targetList	(not used).
+		 */
+		private function onFightEvent(eventName:String, params:Object, targetList:Object = null):void
+		{
+			switch (eventName)
+			{
+				case FightEventEnum.FIGHTER_ENTERING_STATE:
+					break;
 			}
 		}
 		
