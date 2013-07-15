@@ -4,21 +4,28 @@
 	<Import url="[config.mod.template]button/iconButton.xml" />
 
 	<Constants>
-		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
-		<Constant name="css" value="[config.ui.skin]css/" />
+		<Constant name="assets"
+				  value="[config.ui.skin]assets.swf|" />
+		<Constant name="css"
+				  value="[config.ui.skin]css/" />
 
-		<Constant name="bg_height" value="200" type="int" />
-		<Constant name="bg_width" value="400" type="int" />
+		<Constant name="emptyName"
+				  value="ctn_empty" />
+		<Constant name="titleName"
+				  value="ctn_title" />
+		<Constant name="descriptionName"
+				  value="ctn_description" />
+
+		<Constant name="bg_height"
+				  value="600"
+				  type="int" />
+		<Constant name="bg_width"
+				  value="400"
+				  type="int" />
 	</Constants>
 
 	<Container name="ctn_main">
 		<mouseEnabled>true</mouseEnabled>
-		<Anchors>
-			<Anchor>
-				<AbsDimension x="200"
-							  y="200" />
-			</Anchor>
-		</Anchors>
 
 		<Texture name="tx_background">
 			<Size>
@@ -35,7 +42,7 @@
 			<Anchors>
 				<Anchor>
 					<AbsDimension x="20"
-								  y="20" />
+								  y="15" />
 				</Anchor>
 			</Anchors>
 			<Size>
@@ -46,6 +53,74 @@
 			<text>States</text>
 			<css>[local.css]title.css</css>
 		</Label>
+
+		<Grid name="grid_states">
+			<Anchors>
+				<Anchor>
+					<AbsDimension x="14"
+								  y="48" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="365"
+							  y="500" />
+			</Size>
+
+			<scrollDisplay>always</scrollDisplay>
+			<rendererName>MultiGridRenderer</rendererName>
+			<rendererArgs>updateEntry,getLineType</rendererArgs>
+			<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
+			<slotWidth>345</slotWidth>
+			<slotHeight>30</slotHeight>
+
+			<Container name="ctn_title">
+				<iconButton name="btn_title">
+					<Size>
+						<AbsDimension x="345"
+									  y="30" />
+					</Size>
+
+					<autoGrid>false</autoGrid>
+					<uri>[local.assets]tx_bgSubTitle</uri>
+				</iconButton>
+
+				<Label name="lb_title">
+					<Anchors>
+						<Anchor>
+							<AbsDimension x="10"
+										  y="0" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsDimension x="325"
+									  y="30" />
+					</Size>
+
+					<css>[local.css]normal.css</css>
+				</Label>
+			</Container>
+
+			<Container name="ctn_description">
+				<Label name="lb_description">
+					<Anchors>
+						<Anchor>
+							<AbsDimension x="30"
+										  y="0" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsDimension x="305"
+									  y="30" />
+					</Size>
+
+					<css>[local.css]normal.css</css>
+					<fixedHeight>false</fixedHeight>
+				</Label>
+			</Container>
+
+			<Container name="ctn_empty">
+			</Container>
+		</Grid>
 
 		<!-- Close button -->
 		<iconButton name="btn_close">
