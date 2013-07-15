@@ -7,7 +7,7 @@ package ui
 	import d2components.ButtonContainer;
 	import d2components.GraphicContainer;
 	import d2components.Grid;
-	import d2data.Effect;
+	import d2data.SpellState;
 	import d2enums.ComponentHookList;
 	import enums.ConfigEnum;
 	import flash.geom.Rectangle;
@@ -95,7 +95,7 @@ package ui
 				case _ctn_empty:
 					break;
 				case _ctn_title:
-					componentsRef.lb_title.text = (data as Effect).description;
+					componentsRef.lb_title.text = (data as SpellState).name;
 					
 					break;
 				case _ctn_description:
@@ -118,7 +118,7 @@ package ui
 			{
 				return _ctn_empty;
 			}
-			else if (data is Effect)
+			else if (data is SpellState)
 			{
 				return _ctn_title;
 			}
@@ -230,10 +230,10 @@ package ui
 		
 		private function initGrid(selectedId:int = -1):void
 		{
-			var statesId:Object = dataApi.queryEquals(Effect, "id", 950);
-			var statesEffect:Object = dataApi.queryReturnInstance(Effect, statesId);
+			var statesId:Object = dataApi.queryGreaterThan(SpellState, "id", 0);
+			var statesSpell:Object = dataApi.queryReturnInstance(SpellState, statesId);
 			
-			grid_states.dataProvider = statesEffect;
+			grid_states.dataProvider = statesSpell;
 		}
 		
 		private function dragUiStart() : void
