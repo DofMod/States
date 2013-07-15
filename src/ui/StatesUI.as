@@ -7,6 +7,7 @@ package ui
 	import d2components.ButtonContainer;
 	import d2components.GraphicContainer;
 	import d2components.Grid;
+	import d2components.Input;
 	import d2data.SpellState;
 	import d2enums.ComponentHookList;
 	import enums.ConfigEnum;
@@ -43,8 +44,11 @@ package ui
 		
 		public var btn_close:ButtonContainer;
 		public var btn_config:ButtonContainer;
+		public var btn_resetSearch:ButtonContainer;
 		
 		public var grid_states:Grid;
+		
+		public var inp_search:Input;
 		
 		// Some globals
 		public var _ctn_empty:String;
@@ -78,6 +82,10 @@ package ui
 			uiApi.addComponentHook(ctn_main, ComponentHookList.ON_PRESS);
 			uiApi.addComponentHook(ctn_main, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(ctn_main, ComponentHookList.ON_RELEASE_OUTSIDE);
+			
+			uiApi.addComponentHook(inp_search, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
+			
+			uiApi.addComponentHook(btn_resetSearch, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
 		}
 		
 		/**
@@ -95,7 +103,14 @@ package ui
 				case _ctn_empty:
 					break;
 				case _ctn_title:
-					componentsRef.lb_title.text = (data as SpellState).name;
+					var state:SpellState = (data as SpellState);
+					
+					componentsRef.lb_title.text = state.name;
+					
+					componentsRef.btn_title.value = state.id;
+					
+					uiApi.addComponentHook(componentsRef.btn_title, ComponentHookList.ON_PRESS); // Hack to disable the drag
+					uiApi.addComponentHook(componentsRef.btn_title, ComponentHookList.ON_RELEASE);
 					
 					break;
 				case _ctn_description:
@@ -194,6 +209,13 @@ package ui
 					
 					break;
 				default:
+					if (target.name.indexOf("btn_title") != -1)
+					{
+						sysApi.log(16, target.value);
+						
+						break;
+					}
+					
 					break;
 			}
 		}
